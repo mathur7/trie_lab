@@ -9,10 +9,10 @@ Trie = function(){
 Trie.prototype.learn = function(word, index){
   index = index || 0;
   var char = word[index];
-  if(index == word.length){
+  if (index == word.length) {
     this.isWord = true;
     return this;
-  }else if (this.characters[char] === undefined){
+  } else if (this.characters[char] === undefined) {
     this.characters[char] = new Trie();
     this.characters[char].learn(word, index + 1);
   } else {
@@ -23,10 +23,10 @@ Trie.prototype.learn = function(word, index){
 Trie.prototype.getWords = function(words, currentWord){
   words = words || [];
   currentWord = currentWord || "";
-  if(this.isWord === true) {
+  if (this.isWord === true) {
     words.push(currentWord);
   }
-  for(var char in this.characters){
+  for (var char in this.characters) {
     var child = this.characters[char];
     stuff = currentWord + char;
     child.getWords(words, stuff);
@@ -43,9 +43,9 @@ Trie.prototype.find = function(word, index){
 
   var char = word[index];
 
-  if(index === word.length){
+  if (index === word.length) {
     return this;
-  } else if(this.characters[char]){
+  } else if (this.characters[char]) {
     return this.characters[char].find(word, index + 1);
   } else {
     return false;
