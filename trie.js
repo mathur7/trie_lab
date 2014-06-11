@@ -36,15 +36,20 @@ Trie.prototype.getWords = function(words, currentWord){
 
 Trie.prototype.find = function(word, index){
   index = index || 0;
+
+  if (index > word.length || index < 0) {
+    return false;
+  }
+
   var char = word[index];
-  if(index < word.length){
-    return this.characters[char].find(word, index + 1);
-  } else if(index === word.length){
+
+  if(index === word.length){
     return this;
+  } else if(this.characters[char]){
+    return this.characters[char].find(word, index + 1);
   } else {
     return false;
   }
-  
 };
 
 // This function will return the node in the trie
@@ -53,6 +58,25 @@ Trie.prototype.find = function(word, index){
   // Be sure to consider what happens if the word is not in this Trie.
 
 Trie.prototype.autoComplete = function(prefix){
+  //find the given prefix
+  //return all words for that prefix
+  prefix = prefix || "";
+  
+  var prefixNode = this.find(prefix);
+  //if prefix is found, return all results of words for the given prefix
+  //if it is not found, return sorry not found
+  if(prefixNode !== false){
+    results = prefixNode.getWords()
+    for (var i = 0; i < results.length; i++) {
+      results[i] = prefix + results[i];
+    }
+    return results;
+  } else {
+    return [];  
+  }
+
+
+
   // This function will return all completions 
   // for a given prefix.
   // It should use find and getWords.
