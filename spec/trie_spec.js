@@ -43,7 +43,7 @@ describe("Trie", function() {
 
     describe(".find", function(){
       it("returns falsy for a nonexistent string", function(){
-        expect(t.find("nope")).toBeFalsy();
+        expect(t.find("node")).toBeFalsy();
       });
       it("returns the right node for a string", function(){
         t.learn("b");
